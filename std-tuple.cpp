@@ -48,8 +48,13 @@ public:
     tuple() = default;
     tuple(This val, Rest... rest) : tuple<i + 1, Rest...>(rest...), val(val) {}
 
-    template<int i, typename This, typename... Rest>
-    friend This& get(tuple<i, This, Rest...>&);
+    /*
+    friend функция не принадлежит классу, поэтому список шаблонных параметров класса к ней не применяется
+    для нее необходимо описать свой список шаблонных параметров
+    чтобы шаблонные параметры не перкрывались, объявим их с другими именамм
+    */
+    template<int i_, typename This_, typename... Rest_>
+    friend This_& get(tuple<i_, This_, Rest_...>&);
 };
 
 
